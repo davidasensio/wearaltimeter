@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wear Altimeter</string>
+    <string name="metric_meters_unit">m</string>
+    <string name="metric_kilometers_unit">km</string>
+
+    <string name="action_play">Play</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_quit">Quit</string>
+</resources>

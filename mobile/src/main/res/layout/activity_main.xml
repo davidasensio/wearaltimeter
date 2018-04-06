@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.handysparksoft.motionmetering.MainActivity">
+
+    <TextView
+        android:id="@+id/altitudeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="@font/passion_one" android:textSize="36sp"/>
+
+    <LinearLayout
+        android:id="@+id/calibration_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonLockTo0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:onClick="calibrateToZero"
+            android:text="Calibrate"/>
+        <Button
+            android:id="@+id/buttonResetCalibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:onClick="resetCalibration"
+            android:text="reset"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonStartService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp" android:onClick="startMetering"
+        android:text="Start metering"/>
+
+    <Button
+        android:id="@+id/buttonStopService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        android:onClick="stopMetering"
+        android:text="Stop metering"/>
+
+</LinearLayout>

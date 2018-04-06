@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Wear Altimeter</string>
+
+    <!-- Notification -->
+    <string name="notificationTitle">Altimeter service</string>
+    <string name="notificationText">Tap to stop</string>
+</resources>

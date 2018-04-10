@@ -105,8 +105,7 @@ public class WearActivity extends AppCompatActivity /*implements SensorEventList
     }
 
     private void actionQuit() {
-        //Toast.makeText(WearActivity.this, "play", Toast.LENGTH_SHORT).show();
-
+        actionStop();
         mGoogleApiClient.disconnect();
         finish();
     }

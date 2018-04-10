@@ -68,7 +68,7 @@ public class BarometerToWearService extends Service {
                 .setContentIntent(intent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setPriority(Notification.PRIORITY_MAX)
-                .setOngoing(false)
+                .setOngoing(true)
                 //.addAction(android.R.drawable.ic_media_pause, "Stop", createActionStopPendingIntert(context))
                 .build();
     }
@@ -182,7 +182,6 @@ public class BarometerToWearService extends Service {
     public void stopMetering() {
         if (mBarometerHelper != null) {
             mBarometerHelper.pause();
-            mBarometerHelper = null;
         }
     }
 

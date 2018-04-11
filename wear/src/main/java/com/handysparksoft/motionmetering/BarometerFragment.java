@@ -42,6 +42,14 @@ public class BarometerFragment extends Fragment {
         mAltitudeTextView = view.findViewById(R.id.altitudeTextView);
         mAltitudeTextView.setText("0");
 
+
+        view.findViewById(R.id.altitudeLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((WearActivity)getActivity()).closeDrawer();
+            }
+        });
+
         return view;
     }
 
@@ -58,8 +66,6 @@ public class BarometerFragment extends Fragment {
                     vibrate();
                 }
             } else if (mPreviousAltitude - currentAltitude >= DESCEND_THRESHOLD_IN_METERS) {
-                mAltitudeTextView.setText(value);
-            } else if (Math.abs(currentAltitude) <= 10) {
                 mAltitudeTextView.setText(value);
             }
             mPreviousAltitude = currentAltitude;

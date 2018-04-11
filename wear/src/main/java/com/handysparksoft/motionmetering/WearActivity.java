@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.wear.widget.drawer.WearableActionDrawerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -147,7 +148,7 @@ public class WearActivity extends AppCompatActivity /*implements SensorEventList
         mWearableActionDrawer.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                mWearableActionDrawer.getController().closeDrawer();
+                closeDrawer();
 
                 switch (menuItem.getItemId()) {
                     case R.id.action_play_stop_button:
@@ -165,6 +166,10 @@ public class WearActivity extends AppCompatActivity /*implements SensorEventList
             }
         });
         mWearableActionDrawer.getController().peekDrawer();
+    }
+
+    public void closeDrawer() {
+        mWearableActionDrawer.getController().closeDrawer();
     }
 
     private void initGoogleApiClient() {

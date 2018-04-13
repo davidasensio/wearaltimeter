@@ -1,11 +1,11 @@
 package com.handysparksoft.constants;
 
 public class Constants {
-    public static String PATH_ACTION_MESSAGE = "action/";
-    public static String PATH_DATA_MESSAGE = "message/";
+    public static final String PATH_ACTION_MESSAGE = "action/";
+    public static final String PATH_DATA_MESSAGE = "message/";
 
-    public static String ACTION_START_METERING = "startMetering";
-    public static String ACTION_STOP_METERING = "stopMetering";
+    public static final String ACTION_START_METERING = "startMetering";
+    public static final String ACTION_STOP_METERING = "stopMetering";
 
     public interface SERVICE_ACTION {
         int FOREGROUND_ALTIMETER_SERVICE_NOTIFICATION_ID = 101;
@@ -16,4 +16,8 @@ public class Constants {
         String STARTFOREGROUND_ACTION = "com.handysparksoft.constants.action.startforeground";
         String STOPFOREGROUND_ACTION = "com.handysparksoft.constants.action.stopforeground";
     }
+
+    public static boolean METRIC_UNITS = true;
+    public static final String METRIC_METERS_UNIT = "m";
+    public static final String METRIC_FEET_UNIT = "ft";
 }

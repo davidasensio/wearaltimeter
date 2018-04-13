@@ -1,6 +1,7 @@
 package com.handysparksoft.motionmetering;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -25,7 +26,7 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 import com.handysparksoft.constants.Constants;
 
-public class WearActivity extends AppCompatActivity /*implements SensorEventListener*/ {
+public class WearActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_BODY_SENSORS = 111;
     private static final String TAG = WearActivity.class.getSimpleName();
@@ -105,6 +106,11 @@ public class WearActivity extends AppCompatActivity /*implements SensorEventList
         }
     }
 
+    private void actionUnits() {
+        startActivity(new Intent(this, UnitsActivity.class));
+
+    }
+
     private void actionQuit() {
         actionStop();
         mGoogleApiClient.disconnect();
@@ -157,6 +163,9 @@ public class WearActivity extends AppCompatActivity /*implements SensorEventList
                         } else {
                             actionPlay();
                         }
+                        return true;
+                    case R.id.action_units_button:
+                        actionUnits();
                         return true;
                     case R.id.action_quit_button:
                         actionQuit();

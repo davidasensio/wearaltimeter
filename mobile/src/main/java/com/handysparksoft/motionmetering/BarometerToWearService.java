@@ -169,7 +169,7 @@ public class BarometerToWearService extends Service {
         mBarometerHelper.setOnSensorChangeListener(new BarometerHelper.PressureEventListener() {
             @Override
             public void onPressureChanged(float value) {
-                mCurrentAltitudeValue = value;
+                mCurrentAltitudeValue = Constants.METRIC_UNITS ? value : (value * 0.3048f);
                 mCurrentAltitudeValueFormatted = String.format(Math.abs(mCurrentAltitudeValue) >= 10 ? "%.0f" : "%.0f", mCurrentAltitudeValue);
                 if (!mCurrentAltitudeValueFormatted.equals(mPreviousAltitudeValueFormatted)) {
                     sendAltitudeToWearable();

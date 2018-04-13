@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (mBarometerToWearService != null) {
-                            mAltitudeTextView.setText(mBarometerToWearService.getCurrentAltitudeFormatted());
+                            mAltitudeTextView.setText(mBarometerToWearService.getCurrentAltitudeFormatted() + " " + getUnit());
                         }
                     }
                 });
@@ -135,5 +135,9 @@ public class MainActivity extends AppCompatActivity {
         if (mBarometerToWearService != null) {
             mBarometerToWearService.stopMetering();
         }
+    }
+
+    public String getUnit() {
+        return Constants.METRIC_UNITS ? Constants.METRIC_METERS_UNIT : Constants.METRIC_FEET_UNIT;
     }
 }

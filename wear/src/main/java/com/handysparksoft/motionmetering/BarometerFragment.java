@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.handysparksoft.constants.Constants;
+
 
 public class BarometerFragment extends Fragment {
 
@@ -18,6 +20,7 @@ public class BarometerFragment extends Fragment {
     private static final int DESCEND_THRESHOLD_IN_METERS = 2;
 
     private TextView mAltitudeTextView;
+    private TextView mAltitudeUnitTextView;
     private Integer mPreviousAltitude = 0;
     private Vibrator mVibrator;
 
@@ -41,6 +44,9 @@ public class BarometerFragment extends Fragment {
         final View view = inflater.inflate(R.layout.activity_altimeter, container, false);
         mAltitudeTextView = view.findViewById(R.id.altitudeTextView);
         mAltitudeTextView.setText("0");
+        mAltitudeUnitTextView = view.findViewById(R.id.altitudeUnitTextView);
+        mAltitudeUnitTextView.setText(getUnit());
+
 
 
         view.findViewById(R.id.altitudeLayout).setOnClickListener(new View.OnClickListener() {
@@ -63,10 +69,12 @@ public class BarometerFragment extends Fragment {
             if (currentAltitude - mPreviousAltitude >= ASCEND_THRESHOLD_IN_METERS) {
                 if (!value.equals(mAltitudeTextView.getText().toString())) {
                     mAltitudeTextView.setText(value);
+                    mAltitudeUnitTextView.setText(getUnit());
                     vibrate();
                 }
             } else if (mPreviousAltitude - currentAltitude >= DESCEND_THRESHOLD_IN_METERS) {
                 mAltitudeTextView.setText(value);
+                mAltitudeUnitTextView.setText(getUnit());
             }
             mPreviousAltitude = currentAltitude;
         } catch (NumberFormatException e) {
@@ -80,5 +88,9 @@ public class BarometerFragment extends Fragment {
         //-1 - don't repeat
         final int indexInPatternToRepeat = -1;
         mVibrator.vibrate(vibrationSimplePattern, indexInPatternToRepeat);
+    }
+
+    public String getUnit() {
+        return Constants.METRIC_UNITS ? Constants.METRIC_METERS_UNIT : Constants.METRIC_FEET_UNIT;
     }
 }

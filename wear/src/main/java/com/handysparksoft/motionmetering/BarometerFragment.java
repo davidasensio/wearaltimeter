@@ -2,9 +2,13 @@ package com.handysparksoft.motionmetering;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +21,17 @@ public class BarometerFragment extends Fragment {
 
 
     private static final int ASCEND_THRESHOLD_IN_METERS = 1;
-    private static final int DESCEND_THRESHOLD_IN_METERS = 2;
+    private static final int DESCEND_THRESHOLD_IN_METERS = 1;
 
     private TextView mAltitudeTextView;
     private TextView mAltitudeUnitTextView;
     private Integer mPreviousAltitude = 0;
+    private Integer mAscendsCounter = 0;
+    private Integer mDescendsCounter = 0;
     private Vibrator mVibrator;
+    private ToneGenerator toneGenerator;
+    private int userStreamVolume = -1;
+
 
     /**
      * Helper method to quickly create sections.
@@ -48,7 +57,6 @@ public class BarometerFragment extends Fragment {
         mAltitudeUnitTextView.setText(getUnit());
 
 
-
         view.findViewById(R.id.altitudeLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +65,53 @@ public class BarometerFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setAlarmVolume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        restoreAlarmVolume();
+        releaseToneGenerator();
+    }
+
+    private void releaseToneGenerator() {
+        try {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (toneGenerator != null) {
+                        toneGenerator.release();
+                        toneGenerator = null;
+                    }
+                }
+            }, 100);
+        } catch (Exception e) {
+            Log.e(Constants.TAG, e.toString());
+        }
+    }
+
+    private void setAlarmVolume() {
+        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager != null) {
+            if (userStreamVolume == -1) {
+                userStreamVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+            }
+            final int maxStreamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, maxStreamMaxVolume, 0);
+        }
+    }
+
+    private void restoreAlarmVolume() {
+        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager != null) {
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, userStreamVolume, 0);
+        }
     }
 
     public void updateAltitude(String value) {
@@ -70,16 +125,33 @@ public class BarometerFragment extends Fragment {
                 if (!value.equals(mAltitudeTextView.getText().toString())) {
                     mAltitudeTextView.setText(value);
                     mAltitudeUnitTextView.setText(getUnit());
-                    vibrate();
+                    mDescendsCounter = 0;
+                    mAscendsCounter++;
+                    if (mAscendsCounter > 3) {
+                        feedbackAscending();
+                    }
                 }
             } else if (mPreviousAltitude - currentAltitude >= DESCEND_THRESHOLD_IN_METERS) {
                 mAltitudeTextView.setText(value);
                 mAltitudeUnitTextView.setText(getUnit());
+                mAscendsCounter = 0;
+                mDescendsCounter++;
+                if (mDescendsCounter > 3) {
+                    feedbackDescending();
+                }
             }
             mPreviousAltitude = currentAltitude;
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    private void feedbackAscending() {
+        vibrate();
+    }
+
+    private void feedbackDescending() {
+        beep();
     }
 
     private void vibrate() {
@@ -88,6 +160,13 @@ public class BarometerFragment extends Fragment {
         //-1 - don't repeat
         final int indexInPatternToRepeat = -1;
         mVibrator.vibrate(vibrationSimplePattern, indexInPatternToRepeat);
+    }
+
+    private void beep() {
+        if (toneGenerator == null) {
+            toneGenerator = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        }
+        toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
     }
 
     public String getUnit() {

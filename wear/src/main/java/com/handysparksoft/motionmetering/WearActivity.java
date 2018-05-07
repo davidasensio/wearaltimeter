@@ -58,6 +58,12 @@ public class WearActivity extends AppCompatActivity {
         //checkPermissions();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Wearable.MessageApi.removeListener(mGoogleApiClient, messageListener);
+    }
+
     private void actionPlay() {
         isActionPlaySelected = true;
         mWearableActionDrawer.getMenu().findItem(R.id.action_play_stop_button).setIcon(R.drawable.ic_action_playback_stop);

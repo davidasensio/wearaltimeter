@@ -1,6 +1,7 @@
 package com.handysparksoft.constants;
 
 public class Constants {
+    public static final String TAG = "MotionMetering";
     public static final String PATH_ACTION_MESSAGE = "action/";
     public static final String PATH_DATA_MESSAGE = "message/";
 

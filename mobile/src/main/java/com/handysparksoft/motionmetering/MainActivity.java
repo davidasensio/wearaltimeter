@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!pm.isIgnoringBatteryOptimizations(getPackageName())) {
                     //  Prompt the user to disable battery optimization
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                    startActivity(intent);
+//                    Intent intent = new Intent();
+//                    intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+//                    startActivity(intent);
                 }
                 bindAndStartBaromenterService();
             } else {

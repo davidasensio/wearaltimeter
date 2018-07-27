@@ -60,7 +60,7 @@ public class BarometerFragment extends Fragment {
         view.findViewById(R.id.altitudeLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((WearActivity)getActivity()).closeDrawer();
+                ((WearActivity) getActivity()).closeDrawer();
             }
         });
 
@@ -127,7 +127,7 @@ public class BarometerFragment extends Fragment {
                     mAltitudeUnitTextView.setText(getUnit());
                     mDescendsCounter = 0;
                     mAscendsCounter++;
-                    if (mAscendsCounter > 3) {
+                    if (mAscendsCounter > 2) {
                         feedbackAscending();
                     }
                 }
@@ -136,7 +136,7 @@ public class BarometerFragment extends Fragment {
                 mAltitudeUnitTextView.setText(getUnit());
                 mAscendsCounter = 0;
                 mDescendsCounter++;
-                if (mDescendsCounter > 3) {
+                if (mDescendsCounter > 2) {
                     feedbackDescending();
                 }
             }
@@ -147,13 +147,15 @@ public class BarometerFragment extends Fragment {
     }
 
     private void feedbackAscending() {
-        vibrate();
+        //vibrate();
+        beep(true);
     }
 
     private void feedbackDescending() {
-        beep();
+        beep(false);
     }
 
+    @SuppressWarnings("unused")
     private void vibrate() {
         long[] vibrationSimplePattern = {0, 250};
         long[] vibrationPattern = {0, 500, 50, 300};
@@ -162,11 +164,16 @@ public class BarometerFragment extends Fragment {
         mVibrator.vibrate(vibrationSimplePattern, indexInPatternToRepeat);
     }
 
-    private void beep() {
+    private void beep(Boolean treble) {
         if (toneGenerator == null) {
             toneGenerator = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
         }
-        toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+        if (treble) {
+            toneGenerator.startTone( ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+        } else {
+            toneGenerator.startTone(ToneGenerator.TONE_SUP_CONGESTION_ABBREV, 200);
+
+        }
     }
 
     public String getUnit() {

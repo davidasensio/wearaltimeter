@@ -3,6 +3,9 @@
     <item android:id="@+id/action_play_stop_button"
           android:icon="@android:drawable/ic_media_play"
           android:title="@string/action_play"/>
+    <item android:id="@+id/action_sound_button"
+          android:icon="@android:drawable/ic_lock_silent_mode_off"
+          android:title="@string/action_sound"/>
     <item android:id="@+id/action_units_button"
           android:icon="@drawable/ic_action_ruler"
           android:title="@string/action_units"/>

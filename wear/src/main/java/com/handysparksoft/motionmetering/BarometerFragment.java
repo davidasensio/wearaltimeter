@@ -165,14 +165,15 @@ public class BarometerFragment extends Fragment {
     }
 
     private void beep(Boolean treble) {
-        if (toneGenerator == null) {
-            toneGenerator = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-        }
-        if (treble) {
-            toneGenerator.startTone( ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-        } else {
-            toneGenerator.startTone(ToneGenerator.TONE_SUP_CONGESTION_ABBREV, 200);
-
+        if (SharedPreferencesManager.getInstance(getActivity()).getBoolanValue(SoundActivity.KEY_SOUND_ENABLED, true)) {
+            if (toneGenerator == null) {
+                toneGenerator = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+            }
+            if (treble) {
+                toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+            } else {
+                toneGenerator.startTone(ToneGenerator.TONE_SUP_CONGESTION_ABBREV, 200);
+            }
         }
     }
 

@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">Wear Altimeter</string>
     <string name="activity_units_name">Units</string>
+    <string name="activity_sound_name">Sound</string>
     <string name="metric_meters_unit">m</string>
     <string name="metric_feet_unit">ft</string>
 
     <string name="action_play">Play</string>
     <string name="action_stop">Stop</string>
     <string name="action_units">Units</string>
+    <string name="action_sound">Sound</string>
     <string name="action_quit">Quit</string>
     <string name="unit_metric">Metric (m)</string>
     <string name="unit_imperial">Imperial (ft)</string>
+    <string name="sound_enabled">Enabled</string>
+    <string name="sound_disabled">Disabled</string>
 </resources>

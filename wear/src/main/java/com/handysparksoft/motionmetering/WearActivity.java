@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.wear.widget.drawer.WearableActionDrawerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -70,7 +69,7 @@ public class WearActivity extends AppCompatActivity {
         mWearableActionDrawer.getMenu().findItem(R.id.action_play_stop_button).setTitle(getString(R.string.action_stop));
         //Toast.makeText(WearActivity.this, "play", Toast.LENGTH_SHORT).show();
 
-        if(mGoogleApiClient.isConnected()) {
+        if (mGoogleApiClient.isConnected()) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -94,7 +93,7 @@ public class WearActivity extends AppCompatActivity {
         mWearableActionDrawer.getMenu().findItem(R.id.action_play_stop_button).setTitle(getString(R.string.action_play));
         //Toast.makeText(WearActivity.this, "pause", Toast.LENGTH_SHORT).show();
 
-        if(mGoogleApiClient.isConnected()) {
+        if (mGoogleApiClient.isConnected()) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -112,9 +111,12 @@ public class WearActivity extends AppCompatActivity {
         }
     }
 
+    private void actionSound() {
+        startActivity(new Intent(this, SoundActivity.class));
+    }
+
     private void actionUnits() {
         startActivity(new Intent(this, UnitsActivity.class));
-
     }
 
     private void actionQuit() {
@@ -169,6 +171,9 @@ public class WearActivity extends AppCompatActivity {
                         } else {
                             actionPlay();
                         }
+                        return true;
+                    case R.id.action_sound_button:
+                        actionSound();
                         return true;
                     case R.id.action_units_button:
                         actionUnits();

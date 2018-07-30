@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="@string/activity_sound_name"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/soundEnabledRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="5dp"
+                android:text="@string/sound_enabled"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/soundDisabledRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/sound_disabled"
+                android:textSize="18sp"/>
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/soundCancelButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="20dp"
+                android:background="@drawable/round_button"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                tools:ignore="ContentDescription"/>
+
+            <ImageButton
+                android:id="@+id/soundAcceptButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="20dp"
+                android:background="@drawable/round_button_accent"
+                android:src="@drawable/ic_done"
+                tools:ignore="ContentDescription"/>
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
